@@ -19,6 +19,7 @@ RUN yum -y install rpm dnf-plugins-core \
       python3-pyyaml \
       git \
       iproute \
+      sshpass \
  && yum clean all
 
 # Upgrade pip to latest version
