@@ -2,7 +2,7 @@ FROM rockylinux:9
 LABEL maintainer="Bart Smeding"
 ENV container=docker
 
-ENV pip_packages "ansible yamllint pynautobot jmeshpath netaddr"
+ENV pip_packages "ansible-core ansible-lint yamllint pynautobot jmeshpath netaddr"
 
 # Install requirements.
 RUN yum -y install rpm dnf-plugins-core \
