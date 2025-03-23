@@ -22,11 +22,17 @@ RUN yum -y install rpm dnf-plugins-core \
       sshpass \
  && yum clean all
 
-# Upgrade pip to latest version
-RUN pip3 install --upgrade pip
+# Create virtual environment
+RUN python3 -m venv /opt/venv
 
-# Install Ansible and other packages via Python pip
-RUN pip3 install $pip_packages
+# Install Python packages inside venv
+RUN /opt/venv/bin/pip install --upgrade pip wheel \
+ && /opt/venv/bin/pip install cryptography cffi mitogen jmespath pywinrm \
+ && /opt/venv/bin/pip install $pip_packages
+
+# Set PATH to use virtualenv by default
+ENV PATH="/opt/venv/bin:$PATH"
+
 
 # Disable requiretty
 RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
